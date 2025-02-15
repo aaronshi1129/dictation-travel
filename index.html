@@ -1,4 +1,3 @@
-
 <html><head><base href=".">
 <style>
   body {
@@ -50,11 +49,6 @@
   button:hover {
     background: #2980b9;
     transform: scale(1.05);
-  }
-
-  .number {
-    color: #e74c3c;
-    font-weight: bold;
   }
 
   .button-group {
@@ -231,7 +225,7 @@
     <button onclick="showAnswer()">Show Answer</button>
   </div>
   <p class="disclaimer">
-    The sentences do not represent statistical facts. They are only used to practice English listening, writing, and numbers.
+    The sentences are used to practice English listening and writing.
   </p>
   <p class="disclaimer" style="margin-bottom: 0; font-style: normal;">
     Author: Aaron Shi. Released in 2024. Last update on November 23, 2024
@@ -293,51 +287,12 @@ const templates = [
   "What's your favorite travel destination so far?"  
 ];
 
-
 let correctAnswers = 0;
 let totalAttempts = 0;
-
 let currentSentence = '';
 
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function generateSentence() {
-  const template = templates[Math.floor(Math.random() * templates.length)];
-  let number;
-  
-  // Generate factually accurate random numbers within reasonable ranges
-  if (template.includes("social media")) {
-    number = getRandomNumber(120, 170);
-  } else if (template.includes("blinks")) {
-    number = getRandomNumber(25000, 30000);
-  } else if (template.includes("adult laughs")) {
-    number = getRandomNumber(15, 20);
-  } else if (template.includes("heart beats")) {
-    number = getRandomNumber(95000, 105000);
-  } else if (template.includes("emails")) {
-    number = getRandomNumber(100, 140);
-  } else if (template.includes("gallons of water")) {
-    number = getRandomNumber(300, 340);
-  } else if (template.includes("watching television")) {
-    number = getRandomNumber(180, 220);
-  } else if (template.includes("commuting")) {
-    number = getRandomNumber(45, 60);
-  } else if (template.includes("check their smartphones")) {
-    number = getRandomNumber(80, 110);
-  } else if (template.includes("calories")) {
-    number = getRandomNumber(2000, 3000);
-  } else if (template.includes("child laughs")) {
-    number = getRandomNumber(250, 350);
-  } else if (template.includes("steps")) {
-    number = getRandomNumber(7000, 8000);
-  } else {
-    // Default random number for other cases
-    number = getRandomNumber(10, 120);
-  }
-
-  currentSentence = template.replace("NUMBER", number);
+  currentSentence = templates[Math.floor(Math.random() * templates.length)];
   
   // Clear the input and feedback
   document.getElementById("userInput").value = "";
@@ -386,18 +341,16 @@ function checkAnswer() {
     feedbackElement.textContent = "🎉 Excellent! That's correct!";
     feedbackElement.className = "feedback correct";
     
-    // Check if user has completed 5 correct answers
     if (fiveCorrectCounter === 5) {
       const randomPokemonId = Math.floor(Math.random() * POKEMON_COUNT) + 1;
       showPokemonReward(randomPokemonId);
-      fiveCorrectCounter = 0; // Reset counter
+      fiveCorrectCounter = 0;
     }
   } else {
     feedbackElement.textContent = "Keep trying! Listen again and type what you hear.";
     feedbackElement.className = "feedback incorrect";
   }
   
-  // Update score display
   document.getElementById("correctScore").textContent = correctAnswers;
   document.getElementById("totalAttempts").textContent = totalAttempts;
   document.getElementById("percentageScore").textContent = 
@@ -409,14 +362,12 @@ function showAnswer() {
   answerDisplay.textContent = currentSentence;
   answerDisplay.classList.add("show");
   
-  // Hide the answer after 5 seconds
   setTimeout(() => {
     answerDisplay.classList.remove("show");
   }, 5000);
 }
 
 function showPokemonReward(pokemonId) {
-  // Create and show modal
   const modal = document.createElement('div');
   modal.className = 'pokemon-modal';
   modal.innerHTML = `
@@ -438,7 +389,7 @@ function closePokemonModal() {
   const modal = document.querySelector('.pokemon-modal');
   if (modal) {
     modal.remove();
-    generateSentence(); // Generate new sentence after closing modal
+    generateSentence();
   }
 }
 
